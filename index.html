@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BLOOM FIT - 女性専用パーソナルジム</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+  <!-- パーティクル背景 -->
+  <div class="particles" id="particles"></div>
+
+  <div class="auth-container">
+    <!-- ロゴ・ブランド -->
+    <div class="brand">
+      <div class="logo-icon">
+        <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="url(#grad1)" stroke-width="2"/>
+          <path d="M30 12 C20 20, 15 30, 30 48 C45 30, 40 20, 30 12Z" fill="url(#grad1)" opacity="0.8"/>
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#e8a0bf;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#c47daa;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h1 class="brand-name">BLOOM FIT</h1>
+      <p class="brand-tagline">あなたらしく、美しく咲く</p>
+    </div>
+
+    <!-- タブ切り替え -->
+    <div class="tab-container">
+      <button class="tab active" data-tab="login">ログイン</button>
+      <button class="tab" data-tab="register">新規登録</button>
+      <div class="tab-indicator"></div>
+    </div>
+
+    <!-- ログインフォーム -->
+    <form id="loginForm" class="auth-form active">
+      <div class="form-group">
+        <label for="loginEmail">メールアドレス</label>
+        <div class="input-wrapper">
+          <span class="input-icon">✉</span>
+          <input type="email" id="loginEmail" placeholder="example@bloomfit.jp" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">パスワード</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="loginPassword" placeholder="パスワードを入力" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">
+        <span>ログイン</span>
+        <span class="btn-shimmer"></span>
+      </button>
+      <p class="form-footer">
+        <a href="#" id="forgotPassword">パスワードをお忘れですか？</a>
+      </p>
+    </form>
+
+    <!-- 新規登録フォーム -->
+    <form id="registerForm" class="auth-form">
+      <div class="form-group">
+        <label for="regName">お名前</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="regName" placeholder="山田 花子" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regEmail">メールアドレス</label>
+        <div class="input-wrapper">
+          <span class="input-icon">✉</span>
+          <input type="email" id="regEmail" placeholder="example@bloomfit.jp" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPhone">電話番号</label>
+        <div class="input-wrapper">
+          <span class="input-icon">📱</span>
+          <input type="tel" id="regPhone" placeholder="090-1234-5678">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPassword">パスワード</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="regPassword" placeholder="8文字以上" required minlength="8">
+        </div>
+        <div class="password-strength" id="passwordStrength">
+          <div class="strength-bar"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPasswordConfirm">パスワード確認</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="regPasswordConfirm" placeholder="もう一度入力" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPlan">ご希望プラン</label>
+        <div class="plan-selector">
+          <label class="plan-option">
+            <input type="radio" name="plan" value="light" checked>
+            <div class="plan-card-mini">
+              <span class="plan-emoji">🌱</span>
+              <span class="plan-label">ライト</span>
+              <span class="plan-price">¥19,800/月</span>
+            </div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="standard">
+            <div class="plan-card-mini">
+              <span class="plan-emoji">🌸</span>
+              <span class="plan-label">スタンダード</span>
+              <span class="plan-price">¥34,800/月</span>
+            </div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="premium">
+            <div class="plan-card-mini">
+              <span class="plan-emoji">👑</span>
+              <span class="plan-label">プレミアム</span>
+              <span class="plan-price">¥54,800/月</span>
+            </div>
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">
+        <span>アカウント作成</span>
+        <span class="btn-shimmer"></span>
+      </button>
+    </form>
+
+    <!-- メッセージ表示 -->
+    <div id="message" class="message"></div>
+  </div>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
