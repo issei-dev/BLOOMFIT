@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイページ - BLOOM FIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+</head>
+<body class="dashboard-body">
+
+  <!-- ローディング -->
+  <div class="loading-overlay" id="loading">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">読み込み中...</p>
+  </div>
+
+  <!-- ナビゲーション -->
+  <nav class="nav">
+    <div class="nav-brand">BLOOM FIT</div>
+    <div class="nav-user">
+      <span class="nav-user-name" id="navUserName">---</span>
+      <button class="btn-logout" id="logoutBtn">ログアウト</button>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="dashboard-main">
+    <section class="welcome-section">
+      <h2>Welcome back, <span id="welcomeName">---</span></h2>
+      <p>今日も一歩ずつ、なりたい自分へ 🌸</p>
+    </section>
+
+    <div class="card-grid">
+      <!-- 会員情報カード -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon pink">👤</div>
+          <div>
+            <div class="card-title">会員情報</div>
+            <div class="card-subtitle">Member Information</div>
+          </div>
+        </div>
+        <ul class="info-list" id="memberInfo">
+          <li><span class="info-label">お名前</span><span class="info-value" id="infoName">---</span></li>
+          <li><span class="info-label">メール</span><span class="info-value" id="infoEmail">---</span></li>
+          <li><span class="info-label">電話番号</span><span class="info-value" id="infoPhone">---</span></li>
+          <li><span class="info-label">入会日</span><span class="info-value" id="infoDate">---</span></li>
+        </ul>
+      </div>
+
+      <!-- プランカード -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon orange">💎</div>
+          <div>
+            <div class="card-title">ご契約プラン</div>
+            <div class="card-subtitle">Current Plan</div>
+          </div>
+        </div>
+        <div class="plan-display" id="planDisplay">
+          <div class="plan-icon">🌱</div>
+          <div class="plan-name">---</div>
+          <div class="plan-detail">---</div>
+        </div>
+      </div>
+
+      <!-- トレーニングカード -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">🏋️‍♀️</div>
+          <div>
+            <div class="card-title">トレーニングメニュー</div>
+            <div class="card-subtitle">Training Menu</div>
+          </div>
+        </div>
+        <div id="trainingList">
+          <p style="color: var(--text-light); font-size: 0.85rem; text-align: center; padding: 20px 0;">
+            トレーニングメニューは担当トレーナーが設定します
+          </p>
+        </div>
+      </div>
+
+      <!-- 画像ギャラリーカード -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon purple">📸</div>
+          <div>
+            <div class="card-title">フォトギャラリー</div>
+            <div class="card-subtitle">Progress Photos</div>
+          </div>
+        </div>
+        <div class="gallery" id="gallery">
+          <p style="color: var(--text-light); font-size: 0.85rem; text-align: center; padding: 20px 0; grid-column: 1 / -1;">
+            まだ画像がありません
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ライトボックス -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="" id="lightboxImg">
+  </div>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
