@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理者ページ - BLOOM FIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+</head>
+<body class="dashboard-body">
+
+  <nav class="nav">
+    <div class="nav-brand">BLOOM FIT <span style="font-size:0.7rem; color:var(--text-light);">ADMIN</span></div>
+    <div class="nav-user">
+      <button class="btn-logout" id="logoutBtn">ログアウト</button>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <section class="welcome-section">
+      <h2>会員データ管理</h2>
+      <p>会員のトレーニングメニュー・画像を登録します</p>
+    </section>
+
+    <div class="card">
+      <form class="admin-form" id="adminForm">
+        <!-- 会員選択 -->
+        <div class="form-group">
+          <label>対象会員</label>
+          <select id="memberSelect">
+            <option value="">-- 会員を選択 --</option>
+          </select>
+        </div>
+
+        <!-- トレーニングメニュー -->
+        <div class="form-group">
+          <label>トレーニングメニュー（JSON形式）</label>
+          <textarea id="trainingInput" placeholder='[
+  {"name": "ヒップスラスト", "sets": "15回 × 3セット", "note": "フォーム重視"},
+  {"name": "ブルガリアンスクワット", "sets": "12回 × 3セット", "note": "左右交互"},
+  {"name": "ラットプルダウン", "sets": "12回 × 3セット", "note": "肩甲骨を意識"},
+  {"name": "プランク", "sets": "45秒 × 3セット", "note": "体幹安定"}
+]'></textarea>
+        </div>
+
+        <!-- プラン変更 -->
+        <div class="form-group">
+          <label>プラン変更</label>
+          <select id="planSelect">
+            <option value="">変更しない</option>
+            <option value="light">🌱 ライトプラン</option>
+            <option value="standard">🌸 スタンダードプラン</option>
+            <option value="premium">👑 プレミアムプラン</option>
+          </select>
+        </div>
+
+        <!-- 画像アップロード -->
+        <div class="form-group">
+          <label>画像アップロード（複数可）</label>
+          <div class="file-upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <p>クリックまたはドラッグ&ドロップ</p>
+            <p style="font-size:0.7rem; margin-top:4px;">JPG / PNG / WEBP（各5MBまで）</p>
+            <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+          </div>
+          <div class="preview-grid" id="previewGrid"></div>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>データを保存</span>
+          <span class="btn-shimmer"></span>
+        </button>
+      </form>
+
+      <div id="adminMessage" class="message" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
